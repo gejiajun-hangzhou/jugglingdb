@@ -5,7 +5,6 @@ var Schema = exports.Schema = require('./lib/schema').Schema;
 exports.AbstractClass = require('./lib/model.js');
 
 var baseSQL = './lib/sql';
-
 exports.__defineGetter__('BaseSQL', function () {
     return require(baseSQL);
 });
@@ -38,9 +37,7 @@ exports.loadSchema = function(filename, settings, compound) {
             }
         }
     });
-
     return schema;
-
     function define(db, def) {
         def(db, compound);
     }
@@ -74,15 +71,11 @@ exports.init = function (compound) {
             return;
         }
     }
-
-    // legacy stuff
-
     if (compound.version > '1.1.5-15') {
         compound.on('after routes', initialize);
     } else {
         initialize();
     }
-
     function initialize() {
         var railway = './lib/railway';
         try {
@@ -95,12 +88,3 @@ exports.init = function (compound) {
         }
     }
 };
-
-exports.__defineGetter__('version', function () {
-    return JSON.parse(fs.readFileSync(__dirname + '/package.json')).version;
-});
-
-var commonTest = './test/common_test';
-exports.__defineGetter__('test', function () {
-    return require(commonTest);
-});
